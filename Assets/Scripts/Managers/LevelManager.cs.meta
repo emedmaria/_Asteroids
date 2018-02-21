@@ -1,0 +1,17 @@
+fileFormatVersion: 2
+guid: 637e376f31c29fb40a53f40e88996e48
+timeCreated: 1518195167
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_playerShipPrefab: {instanceID: 0}
+  - m_asteroidSmallPrefab: {instanceID: 0}
+  - m_asteroidBigPrefab: {instanceID: 0}
+  - player: {instanceID: 0}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

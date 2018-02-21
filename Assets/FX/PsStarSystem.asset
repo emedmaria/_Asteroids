@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a83fc8d47b99a43a9b21e9a92b3bae, type: 3}
+  m_Name: PsStarSystem
+  m_EditorClassIdentifier: 
+  explosionType: 4
+  ParticleSysPrefab: {fileID: 179800, guid: 629113207a10c3e4b8de81aaa4c2bdb2, type: 2}
+  SoundFX:
+    Type: 0
+    Clip: {fileID: 0}
+    Volume: 0
+  ParticlesLifeTime: 3

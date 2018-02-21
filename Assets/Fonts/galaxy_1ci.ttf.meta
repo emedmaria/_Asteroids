@@ -1,0 +1,23 @@
+fileFormatVersion: 2
+guid: 44fa00c58627e5941ad4012313cfbacc
+timeCreated: 1517939972
+licenseType: Free
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontName: Galaxy 1 Condensed Italic
+  fontNames:
+  - Galaxy 1 Condensed Italic
+  fallbackFontReferences: []
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
