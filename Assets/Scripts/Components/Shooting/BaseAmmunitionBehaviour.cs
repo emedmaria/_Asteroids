@@ -16,15 +16,6 @@ namespace AsteroidsClone
 		void Recycle(); 
 	}
 	
-	[CreateAssetMenu(fileName ="Ammunition Settings",menuName = "__Asteroids/Shared Data/Ammunition Template")]
-	[SerializeField]
-	public class AmmunitionSettings:ScriptableObject
-	{
-
-		public float BulletLife = 1f;
-		public float Damage = 1f;
-	}
-
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(ScreenWrapper))]
 	public class BaseAmmunitionBehaviour : MonoBehaviour, IShootable,IRecycle {
@@ -40,7 +31,6 @@ namespace AsteroidsClone
 
 		[SerializeField]
 		private AmmunitionSettings ammuTemplate;
-
 		private Rigidbody m_rb;
 		private ScreenWrapper m_screenWrapper;
 		private Transform sourceParent; 
@@ -69,8 +59,6 @@ namespace AsteroidsClone
 		}
 
 		#endregion
-
-		
 
 		public void OnRemoveFromView(object sender, EventArgs e)
 		{

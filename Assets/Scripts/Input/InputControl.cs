@@ -30,14 +30,14 @@ public class ButtonInputControl: InputControl
 	public bool IsHeld { get { return isHeld = IsPressed(); } }
 
 	private KeyCode bindKey;
-	private string bindButton;
+	private string bindButton = null;
 
 	public ButtonInputControl(KeyCode bindKey){ this.bindKey = bindKey;}
 	public ButtonInputControl(string bindButton) { this.bindButton = bindButton;}
 
 	private bool IsPressed()
 	{
-		isHeld = (Input.GetButtonDown(bindButton) || Input.GetKeyDown(bindKey));
+		isHeld = ((bindButton!=null && Input.GetButtonDown(bindButton) )|| Input.GetKeyDown(bindKey));
 		return isHeld;
 	}
 }
@@ -56,10 +56,9 @@ public class AxisInputControl : InputControl
 
 	private bool IsPressed()
 	{
-		if (!IsControlEnabled()) return false;
-
+		//if (!IsControlEnabled()) return false;
 		axisValue = Input.GetAxis(axis);
-		isHeld = axisValue > 0;
+		isHeld = (axisValue != 0);
 		return isHeld;
 	}
 }
