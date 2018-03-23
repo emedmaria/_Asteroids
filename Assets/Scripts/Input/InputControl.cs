@@ -2,6 +2,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+interface IInputPress
+{
+	 bool IsPressed();
+	 InputControl GetControlHeld();
+}
+
 public class InputControl {
 
 	public enum InputControlType
@@ -17,12 +23,12 @@ public class InputControl {
 		get { return type; }
 		set { type = value; }
 	}
-
+	public string Name { get; set; }
 	public bool IsControlEnabled() { return m_Enabled;}
 	public void SetControlEnabled(bool enabled) { m_Enabled = enabled; }
 }
 
-public class ButtonInputControl: InputControl
+public class ButtonInputControl: InputControl, IInputPress
 {
 	private const float BUTTONTRESHOLD = 0.5f;
 
@@ -35,14 +41,17 @@ public class ButtonInputControl: InputControl
 	public ButtonInputControl(KeyCode bindKey){ this.bindKey = bindKey;}
 	public ButtonInputControl(string bindButton) { this.bindButton = bindButton;}
 
-	private bool IsPressed()
+	public bool IsPressed()
 	{
+		if (!IsControlEnabled()) return false; 
 		isHeld = ((bindButton!=null && Input.GetButtonDown(bindButton) )|| Input.GetKeyDown(bindKey));
 		return isHeld;
 	}
+
+	public InputControl GetControlHeld() { return isHeld ? this : null; }
 }
 
-public class AxisInputControl : InputControl
+public class AxisInputControl : InputControl, IInputPress
 {
 	private bool isHeld;
 	public bool IsHeld { get { return isHeld = IsPressed(); } }
@@ -54,12 +63,14 @@ public class AxisInputControl : InputControl
 
 	public AxisInputControl(string axis) { this.axis = axis; }
 
-	private bool IsPressed()
+	public bool IsPressed()
 	{
-		//if (!IsControlEnabled()) return false;
+		if (!IsControlEnabled()) return false;
 		axisValue = Input.GetAxis(axis);
 		isHeld = (axisValue != 0);
 		return isHeld;
 	}
+
+	public InputControl GetControlHeld() { return isHeld ? this : null; }
 }
 

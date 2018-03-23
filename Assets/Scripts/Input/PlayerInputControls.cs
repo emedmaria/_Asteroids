@@ -2,15 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using System.Linq;
 
 namespace AsteroidsClone {
-
-	public class PlayerInputEventArgs : EventArgs
-	{
-		public PlayerInputControls.ActionType ActionType { get; set; }
-		public InputControl SourceInputControl { get; set; }
-	}
 
 	/// <summary>
 	/// Player Input Action Map 
@@ -23,82 +17,148 @@ namespace AsteroidsClone {
 			Fire,
 			Thurst,
 			Turn
-		} 
+		}
 
-		Dictionary<ActionType, InputControl> buttonInputControls;
-		Dictionary<ActionType, InputControl> buttonNameInputControls;
-		Dictionary<ActionType, InputControl> axisNameInputControls;
+		private Dictionary<ActionType, List<InputControl>> m_actionMapInputControls;
 
 		public PlayerInputControls()
 		{
-			//	Bind by KeyCode 
-			buttonInputControls = new Dictionary<ActionType, InputControl>();
-			
-			//	Bind by ButtonName
-			buttonNameInputControls = new Dictionary<ActionType, InputControl>();
-
-			//	Bind by AxisName
-			axisNameInputControls = new Dictionary<ActionType, InputControl>();
+			//	Mapping of Actions with InputControls
+			m_actionMapInputControls = new Dictionary<ActionType, List<InputControl>>(); 
 		}
 
-		public void BindButtonInputAction(ActionType actionType, KeyCode key, bool enabled = true)
+		public void BindButtonInputAction(ActionType actionType, KeyCode key, bool enabled = false)
 		{
 			var buttonInputControl = new ButtonInputControl(key);
 			buttonInputControl.SetControlEnabled(enabled);
-			buttonInputControls[actionType] = buttonInputControl;
+
+			//	Add inputControl to an Action Type
+			List<InputControl> inputControls; 
+			if(m_actionMapInputControls.TryGetValue(actionType, out inputControls)){
+
+				if (inputControls == null) inputControls = new List<InputControl>();
+				inputControls.Add(buttonInputControl);
+			}
+			else
+			{
+				inputControls = new List<InputControl>();
+				inputControls.Add(buttonInputControl);
+				m_actionMapInputControls[actionType] = inputControls;
+			}
 		}
 
-		public void BindButtonInputAction(ActionType actionType, string buttonName, bool enabled = true)
+		public void BindButtonInputAction(ActionType actionType, string buttonName, bool enabled = false)
 		{
 			var buttonInputControl = new ButtonInputControl(buttonName);
 			buttonInputControl.SetControlEnabled(enabled);
-			buttonNameInputControls[actionType] = new ButtonInputControl(buttonName);
+
+			//	Add inputControl to an Action Type
+			List<InputControl> inputControls;
+			if (m_actionMapInputControls.TryGetValue(actionType, out inputControls))
+			{
+				if (inputControls == null) inputControls = new List<InputControl>();
+				inputControls.Add(buttonInputControl);
+			}
+			else
+			{
+				inputControls = new List<InputControl>();
+				inputControls.Add(buttonInputControl);
+				m_actionMapInputControls[actionType] = inputControls;
+			}
 		}
 
-		public void BindAxisInputAction(ActionType actionType, string axisName, bool enabled = true)
+		public void BindAxisInputAction(ActionType actionType, string axisName, bool enabled = false)
 		{
 			var axisNameInputControl = new AxisInputControl(axisName);
 			axisNameInputControl.SetControlEnabled(enabled);
-			axisNameInputControls[actionType] = new AxisInputControl(axisName);
+
+			//	Add inputControl to an Action Type
+			List<InputControl> inputControls;
+			if (m_actionMapInputControls.TryGetValue(actionType, out inputControls))
+			{
+
+				if (inputControls == null) inputControls = new List<InputControl>();
+				inputControls.Add(axisNameInputControl);
+			}
+			else
+			{
+				inputControls = new List<InputControl>();
+				inputControls.Add(axisNameInputControl);
+				m_actionMapInputControls[actionType] = inputControls;
+			}
 		}
 
 		public bool ActiveActionMaps()
 		{
-			return ((buttonInputControls != null && buttonInputControls.Count > 0) ||
-				(buttonNameInputControls != null && buttonNameInputControls.Count > 0)||
-				(axisNameInputControls != null && axisNameInputControls.Count > 0));
+			return m_actionMapInputControls != null && m_actionMapInputControls.Count > 0;
 		}
 
-		public InputControl GetInputControl(ActionType actionType)
+		public List<InputControl> GetInputControlList(ActionType actionType)
 		{
-			if (buttonInputControls.ContainsKey(actionType))
-				return buttonInputControls[actionType];
+			if (m_actionMapInputControls == null) return null;
+			var inputControlList = m_actionMapInputControls[actionType];
+			return inputControlList;
+		}
 
-			if (buttonNameInputControls.ContainsKey(actionType))
-				return buttonNameInputControls[actionType];
+		InputControl GetActionInputControlByName(ActionType actionType, string name)
+		{
+			List<InputControl> inputControlList = GetInputControlList(actionType);
+			var result = (inputControlList != null ? inputControlList.FirstOrDefault(s => s.Name.Equals(name)):null);
+			return result;
+		}
 
-			if (axisNameInputControls.ContainsKey(actionType))
-				return axisNameInputControls[actionType];
+		public void SetEnableActionType(ActionType actionType, bool enabled)
+		{
+			List<InputControl> inputControlList = GetInputControlList(actionType);
+			if (inputControlList == null) return;
 
-			return null;
+			int nControls = inputControlList.Count;
+
+			for (int i = 0; i < nControls; i++)
+				inputControlList[i].SetControlEnabled(enabled);
 		}
 
 		//	Player Button Input bindings 
-		public ButtonInputControl Fire {
-			get {
-				return (ButtonInputControl)(buttonInputControls.ContainsKey(ActionType.Fire)?buttonInputControls[ActionType.Fire]:null);
-			}
-		}
-		public AxisInputControl Thurst {
-			get {
-				return (AxisInputControl)(axisNameInputControls.ContainsKey(ActionType.Thurst)? axisNameInputControls[ActionType.Thurst]:null);
-			}
-		}
-		public AxisInputControl Turn
+		public bool IsActionActive(ActionType actionType)
 		{
-			get {
-				return (AxisInputControl)(axisNameInputControls.ContainsKey(ActionType.Turn) ? axisNameInputControls[ActionType.Turn] : null);
-			}
+			List<InputControl> inputControlList = GetInputControlList(actionType);
+			var result = (inputControlList != null ? inputControlList.FirstOrDefault(s => (s as IInputPress).IsPressed().Equals(true)) : null);
+			return (result != null);
 		}
+
+		public InputControl GetActiveInputControl(ActionType actionType)
+		{
+			List<InputControl> inputControlList = GetInputControlList(actionType);
+			var result = (inputControlList != null ? inputControlList.FirstOrDefault(s => (s as IInputPress).GetControlHeld() != null) : null);
+			return (result != null ? result as InputControl : null);
+		}
+
+		#region - Current Player Input Actions
+		public bool Fire {
+			get { return IsActionActive(ActionType.Fire); }
+		}
+
+		public InputControl InputControlFire{
+			get { return GetActiveInputControl(ActionType.Fire);}
+		}
+
+		public bool Thurst {
+			get { return IsActionActive(ActionType.Thurst); }
+		}
+
+		public AxisInputControl InputControlThurst{
+			get { return GetActiveInputControl(ActionType.Thurst) as AxisInputControl; }
+		}
+
+		public bool Turn
+		{
+			get { return IsActionActive(ActionType.Turn); }
+		}
+
+		public AxisInputControl InputControlTurn
+		{
+			get { return GetActiveInputControl(ActionType.Turn) as AxisInputControl; }
+		}
+		#endregion
 	}
 }

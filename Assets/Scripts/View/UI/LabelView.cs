@@ -9,13 +9,18 @@ namespace AsteroidsClone
 	[RequireComponent(typeof(Text))]
 	public class LabelView : BaseView
 	{
-		private Text LabelText;
+		private const string SCALE_ANIMATION = "EnableScale";
+		private const string FAIL_COLOR_ANIMATION = "EnableColorFail";
+
+		private Text labelText;
+		private Animator animator;
 
 		#region Monobehaviour methods
 		void Awake()
 		{
 			// Save references
-			LabelText = GetComponentInChildren<Text>();
+			labelText = GetComponentInChildren<Text>();
+			if (animator == null) animator = GetComponent<Animator>(); 
 		}
 
 		void OnDestroy()
@@ -25,26 +30,36 @@ namespace AsteroidsClone
 		}
 		#endregion
 
+		/*public void TriggerScaleAnimation()
+		{
+			animator.SetBool(SCALE_ANIMATION, true);
+		}
+
+		public void TriggerFailColorAnimation()
+		{
+			animator.SetBool(FAIL_COLOR_ANIMATION, true);
+		}*/
+
 		#region Fields and properties
 		public string Text
 		{
 			get
 			{
-				return LabelText != null ? LabelText.text : string.Empty;
+				return labelText != null ? labelText.text : string.Empty;
 			}
 			set
 			{
-				if (LabelText == null)
-					LabelText = GetComponentInChildren<Text>();
+				if (labelText == null)
+					labelText = GetComponentInChildren<Text>();
 
-				LabelText.text = value;
+				labelText.text = value;
 			}
 		}
 
 		public Color TextColor
 		{
-			get { return LabelText.color; }
-			set { LabelText.color = value; }
+			get { return labelText.color; }
+			set { labelText.color = value; }
 		}
 		#endregion
 

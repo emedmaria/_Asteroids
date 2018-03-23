@@ -34,8 +34,13 @@ namespace AsteroidsClone
 			//StartCoroutine(DisplayRound());
 		}
 
-		public void UpdateScore(int newScore) { scoreLabel.Text = "POINTS: "+newScore.ToString("D4"); }
-		public void UpdateLives(int lives) { livesLabel.Text = "LIVES: "+lives.ToString("D3");}
+		public void UpdateScore(int newScore) {
+			scoreLabel.Text = "POINTS: "+newScore.ToString("D4");
+		}
+		public void UpdateLives(int lives) {
+			livesLabel.Text = "LIVES: "+lives.ToString("D3");
+			//livesLabel.TriggerFailColorAnimation();
+		}
 
 		public void DisplayHud()
 		{

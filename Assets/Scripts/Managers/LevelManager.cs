@@ -33,8 +33,8 @@ namespace AsteroidsClone
 		private ObjectPool<GameObject> m_asteroidSmallPool;
 
         //  Spawners
-        private BaseSpawner asteroidsSmallSpawner;
-        private BaseSpawner asteroidsBigSpawner;
+        private BaseSpawner m_asteroidsSmallSpawner;
+        private BaseSpawner m_asteroidsBigSpawner;
 
 		//private int m_level;
 
@@ -118,11 +118,11 @@ namespace AsteroidsClone
 		public void StartLevel(int level, int nAsteroidsByLevel)
 		{
 			//	Spawn Asteroids - Big
-			asteroidsBigSpawner = new BaseSpawner(nAsteroidsByLevel,m_asteroidBigPrefab, m_asteroidSmallPrefab);
-			asteroidsBigSpawner.SpawnSet();
+			m_asteroidsBigSpawner = new BaseSpawner(nAsteroidsByLevel,m_asteroidBigPrefab, m_asteroidSmallPrefab);
+			m_asteroidsBigSpawner.SpawnSet();
 
 			//	Suscription to events related to Unit Collisions
-			asteroidsBigSpawner.Shot += OnUnitShot;
+			m_asteroidsBigSpawner.Shot += OnUnitShot;
 		}
 
 		public  void RecoverPlayer()
@@ -166,8 +166,8 @@ namespace AsteroidsClone
 			//	TODO Add nice animation with the Points Scored
 		}
 
-		public bool AsteroidsAlive { get { return asteroidsBigSpawner.EntityRemaining > 0; } }
-		public int AsteroidsCount { get { return asteroidsBigSpawner.EntityRemaining; } }
+		public bool AsteroidsAlive { get { return m_asteroidsBigSpawner.EntityRemaining > 0; } }
+		public int AsteroidsCount { get { return m_asteroidsBigSpawner.EntityRemaining; } }
 
 		/*
 		public bool AsteroidsAlive { get { return asteroidsSmallSpawner.EntityRemaining > 0; } }
@@ -176,16 +176,16 @@ namespace AsteroidsClone
 
 		public void ResetSpawners()
 		{
-			if (asteroidsSmallSpawner != null)
+			if (m_asteroidsSmallSpawner != null)
 			{
-				asteroidsSmallSpawner.Shot -= OnUnitShot;
-				asteroidsSmallSpawner.Reset();
+				m_asteroidsSmallSpawner.Shot -= OnUnitShot;
+				m_asteroidsSmallSpawner.Reset();
 			}
 
-			if (asteroidsBigSpawner != null)
+			if (m_asteroidsBigSpawner != null)
 			{
-				asteroidsBigSpawner.Shot -= OnUnitShot;
-				asteroidsBigSpawner.Reset();
+				m_asteroidsBigSpawner.Shot -= OnUnitShot;
+				m_asteroidsBigSpawner.Reset();
 			}
 		}
 	}

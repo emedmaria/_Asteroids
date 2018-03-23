@@ -9,7 +9,7 @@ namespace AsteroidsClone
 		[SerializeField]
 		private LabelView messageLabel;
 
-		private float m_appearanceTs = 32f;
+		private float m_appearanceTs = 3f;
 		private WaitForSeconds m_appearance;
 
 		//void Awake() { UpdateContent(string.Empty); }

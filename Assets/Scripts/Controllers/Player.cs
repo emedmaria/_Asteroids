@@ -90,12 +90,14 @@ namespace AsteroidsClone
 		public override void EnableControls()
 		{
 			m_baseShipMovement.enabled = true;
+			m_baseShipMovement.EnableInputControls();
 			m_baseShooter.enabled = true; 
 		}
 
 		public override void DisableControls()
 		{
 			m_baseShipMovement.enabled = true;
+			m_baseShipMovement.DisableInputControls();
 			m_baseShooter.enabled = true;
 		}
 

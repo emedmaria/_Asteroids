@@ -178,7 +178,8 @@ namespace AsteroidsClone
 		public void ShowMessage(string sms)
 		{
 			messagesView.UpdateContent(sms);
-			messagesView.Show(); 
+			messagesView.Show();
+			//messagesView.TriggerAnimation();
 		}
 
 		public void HideMessage()

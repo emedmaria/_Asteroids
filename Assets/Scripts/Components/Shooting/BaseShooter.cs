@@ -26,21 +26,31 @@ namespace AsteroidsClone
 		[SerializeField]
 		private GameObject ammunitionPrefab;
 
-		private PlayerInputHandler playerInputHandler; 
-
+		#region MonoBehaviour methods
 		void Awake()
 		{
 			m_rb = GetComponent<Rigidbody>();
 			PoolManager.BuildPool(ammunitionPrefab, MAX_AMMUNITION);
-			playerInputHandler = PlayerInputHandler.Instance;
 
-			//	Suscribe to Input Events
-			PlayerInputHandler.StartListening(PlayerInputControls.ActionType.Fire, OnHandleFireEvent);
+			EnableInputControls();
 		}
 
-		void Destroy()
+		void Destroy() { DisableInputControls();  }
+		void OnEnable() { EnableInputControls(); }
+		void OnDisable() { DisableInputControls(); }
+		#endregion
+
+		private void EnableInputControls()
+		{
+			//	Suscribe to Input Events
+			PlayerInputHandler.EnableInputControl(PlayerInputControls.ActionType.Fire,true);
+			PlayerInputHandler.StartListening(PlayerInputControls.ActionType.Fire, OnHandleFireEvent);
+
+		}
+		private void DisableInputControls()
 		{
 			//	Stop Listening Input Events
+			PlayerInputHandler.EnableInputControl(PlayerInputControls.ActionType.Fire, false);
 			PlayerInputHandler.StopListening(PlayerInputControls.ActionType.Fire, OnHandleFireEvent);
 		}
 
