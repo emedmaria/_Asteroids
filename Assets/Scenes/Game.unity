@@ -922,6 +922,11 @@ Prefab:
       value: 
       objectReference: {fileID: 1104791594272156, guid: 14b5789361ca9d146bc2dfae521e05d1,
         type: 2}
+    - target: {fileID: 114366953619494184, guid: bddde36cf4c30d541973a93dd1b0c855,
+        type: 2}
+      propertyPath: enemiesPrefab.Array.data[1]
+      value: 
+      objectReference: {fileID: 191014, guid: 33184c9aaca65824bbc52809379e9aa3, type: 2}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: bddde36cf4c30d541973a93dd1b0c855, type: 2}
   m_IsPrefabParent: 0
