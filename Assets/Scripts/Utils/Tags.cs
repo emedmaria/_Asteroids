@@ -8,6 +8,7 @@ namespace AsteroidsClone
 	{
 		public const string Dynamic = "Dynamic";
 		public const string Ammu = "Ammu";
+		public const string SaucerAmmu = "SaucerAmmu";
 		public const string Player = "Player";
 	}
 }

@@ -5,8 +5,25 @@ using UnityEngine;
 
 namespace AsteroidsClone
 {
+	public abstract class EnemySharedData : ScriptableObject
+	{
+		[SerializeField]
+		[Range(0, 800)]
+		protected int destructionScore = 100;               //	Points obtained when is hit
+		public int DestructionScore { get { return destructionScore; } }
+
+		[SerializeField]
+		protected int health = 1;                           //	Number of hits to permanent destroy it
+		public int Health { get { return health; } }
+
+		[SerializeField]
+		protected int damage = 1;                           //	Damage caused by its collision
+		public int Damage { get { return damage; } }
+
+	}
+
 	[CreateAssetMenu(fileName = "Asteroid Template", menuName = "__Asteroids/Shared Data/Asteroids Template")]
-	public class AsteroidSharedData : ScriptableObject
+	public class AsteroidSharedData : EnemySharedData
 	{
 		[SerializeField]
 		[Header("Num fragments after collision")]
@@ -32,21 +49,5 @@ namespace AsteroidsClone
 		private float initRotation = 80f;
 		public float InitRotation { get { return initRotation; } }
 	}
-
-	/*public abstract class EnemySharedData : ScriptableObject
-	{
-		[SerializeField]
-		[Range(0, 200)]
-		protected int destructionScore = 100;               //	Points obtained when is hit
-		public int DestructionScore { get { return destructionScore; } }
-
-		[SerializeField]
-		protected int health = 1;                           //	Number of hits to permanent destroy it
-		public int Health { get { return health; } }
-
-		[SerializeField]
-		protected int damage = 1;                           //	Damage caused by its collision
-		public int Damage { get { return damage; } }
-	}*/
 }
 

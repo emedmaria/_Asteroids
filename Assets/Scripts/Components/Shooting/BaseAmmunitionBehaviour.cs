@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 namespace AsteroidsClone
@@ -18,7 +16,7 @@ namespace AsteroidsClone
 	
 	[RequireComponent(typeof(Rigidbody))]
 	[RequireComponent(typeof(ScreenWrapper))]
-	public class BaseAmmunitionBehaviour : MonoBehaviour, IShootable,IRecycle {
+	public class BaseAmmunitionBehaviour : MonoBehaviour, IShootable, IRecycle {
 
 		/*public float BulletLife
 		{

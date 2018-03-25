@@ -13,6 +13,10 @@ namespace AsteroidsClone {
 		[SerializeField]
 		private AsteroidSharedData sharedData;
 
+		override public int Health { get { return sharedData.Health; } }
+		override public int DestructionScore { get { return sharedData.DestructionScore; } }
+		override public int Damage { get { return sharedData.Damage; } }
+
 		public int NumBits { get { return sharedData.NumBits; } }
 		protected float MinScale { get { return sharedData.MinScale; } }
 		protected float MaxScale { get { return sharedData.MaxScale; } }
@@ -27,7 +31,6 @@ namespace AsteroidsClone {
 				AsteroidShatter(sender, e);
 		}
         #endregion
-
 
 
         #region Spawning
@@ -52,7 +55,7 @@ namespace AsteroidsClone {
         protected virtual void ApplySpawnVariation()
         {
             transform.localScale = CalculateRandomScale(MinScale, MaxScale);
-            //transform.localScale = Vector3.one;
+
             if (m_rb != null)
             {
                 SetRandomForce(m_rb, InitForce);

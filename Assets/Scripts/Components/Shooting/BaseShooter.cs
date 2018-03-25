@@ -11,9 +11,6 @@ namespace AsteroidsClone
 		const float AMMU_SPEED = 45f;
 
 		[SerializeField]
-		protected float FireRate = 0.25f;
-
-		[SerializeField]
 		protected Transform m_bulletSpawnTransform;
 		private Rigidbody m_rb;
 
@@ -31,8 +28,7 @@ namespace AsteroidsClone
 		{
 			m_rb = GetComponent<Rigidbody>();
 			PoolManager.BuildPool(ammunitionPrefab, MAX_AMMUNITION);
-
-			EnableInputControls();
+			//EnableInputControls();
 		}
 
 		void Destroy() { DisableInputControls();  }
@@ -56,6 +52,11 @@ namespace AsteroidsClone
 
 		private void OnHandleFireEvent(object sender, PlayerInputEventArgs e)
 		{
+			Fire(); 
+		}
+
+		private void Fire()
+		{
 			// checks the firerate and fires laser from objectpool.
 			if (Time.time > m_nextFire)
 			{
@@ -70,36 +71,8 @@ namespace AsteroidsClone
 				AudioManager.Instance.PlaySFX(soundFXType);
 				FireAmmunition(shootable);
 			}
-			else {
-				m_nextFire = Time.time;
-			}
-
+			
 		}
-
-		/*void Update()
-		{
-			//return Input.GetButtonDown("Fire1");
-			if (Input.GetKeyDown(KeyCode.Space))
-			{
-				// checks the firerate and fires laser from objectpool.
-				if (Time.time > m_nextFire)
-				{
-					m_nextFire = Time.time + m_fireRate;
-
-					var ammunitionClone = PoolManager.SpawnObject(ammunitionPrefab);
-					var ammuTransform = ammunitionClone.transform;
-					ammuTransform.position = m_bulletSpawnTransform.position;
-					ammuTransform.rotation = gameObject.transform.rotation;
-					IShootable shootable = ammunitionClone.GetComponent<IShootable>();
-					shootable.Source = m_bulletSpawnTransform;
-                    AudioManager.Instance.PlaySFX(soundFXType); 
-					FireAmmunition(shootable); 
-				}
-				else {
-					m_nextFire = Time.time;
-				}
-			}
-		}*/
 
 		void FireAmmunition(IShootable ammu, float speed = AMMU_SPEED)
 		{

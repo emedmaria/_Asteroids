@@ -11,6 +11,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ca6bf3c5dcbbd2349848748b5192ad6e, type: 3}
   m_Name: AsteroidBigTemplate
   m_EditorClassIdentifier: 
+  destructionScore: 100
+  health: 2
+  damage: 1
   numBits: 2
   minScale: 0.9
   maxScale: 1.2

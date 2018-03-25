@@ -20,6 +20,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4970332130794828}
   - component: {fileID: 114366953619494184}
+  - component: {fileID: 114684826656514204}
   m_Layer: 0
   m_Name: LevelManager
   m_TagString: Untagged
@@ -55,5 +56,17 @@ MonoBehaviour:
   m_asteroidSmallPrefab: {fileID: 186268, guid: aa1dd53676ab5e142a2eab91723d43e7,
     type: 2}
   m_asteroidBigPrefab: {fileID: 186268, guid: 0cc2b6c448b0759409599f21e66ce41e, type: 2}
-  detonator: {fileID: 114146483378205762, guid: 7cc063b3006a6194799c7339bad631ab,
-    type: 2}
+  enemiesPrefab:
+  - {fileID: 191014, guid: 33184c9aaca65824bbc52809379e9aa3, type: 2}
+  - {fileID: 1104791594272156, guid: 14b5789361ca9d146bc2dfae521e05d1, type: 2}
+--- !u!114 &114684826656514204
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1872670744735348}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a8ed6cb418616b5478ad34f54332bae9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

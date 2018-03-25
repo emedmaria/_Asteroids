@@ -9,6 +9,7 @@ namespace AsteroidsClone
 	{
 		private int m_nObjectsToSpwan;
 		private List<EntityBehaviour> m_spawnObjects;
+
 		private GameObject m_prefabToSpawn;
 		private GameObject m_childPrefabToSpawn;
 

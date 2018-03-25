@@ -8,14 +8,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ca6bf3c5dcbbd2349848748b5192ad6e, type: 3}
-  m_Name: AsteroidSmallTemplate
+  m_Script: {fileID: 11500000, guid: 1f156b21777f2194a9d2190b00da00b2, type: 3}
+  m_Name: ChaserSaucerTemplate
   m_EditorClassIdentifier: 
-  destructionScore: 200
+  destructionScore: 600
   health: 1
   damage: 1
-  numBits: 0
-  minScale: 0.4
-  maxScale: 0.6
-  initForce: 2000
-  initRotation: 700
+  spawnIntervalTs: 4
+  fireRate: 2
+  initForce: 800
+  initRotation: 80

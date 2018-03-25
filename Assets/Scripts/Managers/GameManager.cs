@@ -151,6 +151,7 @@ namespace AsteroidsClone
 
 				//	Player controls not active
 				levelManager.ResetPlayer();
+
                 audioManager.StopMusic(); 
 
                 //	Display message and hide
@@ -178,6 +179,7 @@ namespace AsteroidsClone
 
 				//	Player controls not active
 				levelManager.ResetPlayer();
+				levelManager.ResetEnemies(); 
 
 				//	Display message and hide
 				uiController.ShowMessage("LEVEL COMPLETED!!");

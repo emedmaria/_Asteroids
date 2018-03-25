@@ -6,8 +6,12 @@ namespace AsteroidsClone
 	[RequireComponent(typeof(Rigidbody))]
 	public abstract class EnemyUnit : EntityBehaviour {
 
+		abstract public int Health { get;  }
+		abstract public int DestructionScore { get; }
+		abstract public int Damage { get; }
+
 		//	TODO: Move this to the abstract SO
-		[SerializeField]
+		/*[SerializeField]
 		[Range(0, 200)]
 		protected int destructionScore = 100;				//	Points obtained when is hit
 		public int DestructionScore { get { return destructionScore; } }
@@ -18,8 +22,9 @@ namespace AsteroidsClone
 		[SerializeField]
 		protected int damage = 1;							//	Damage caused by its collision
 		public int Damage { get { return damage; } }
-		//
+		*/
 
+		//	State Variables
 		protected int currentHealth;
 		public int CurrentHealth { get { return currentHealth;  } }
 
@@ -27,11 +32,12 @@ namespace AsteroidsClone
 
 		[SerializeField]
 		private ExplosionType explosionType;
-		public virtual ExplosionType ExplosionType { get; private set; }
+		public virtual ExplosionType ExplosionType { get { return explosionType; }}
 	
 		public virtual void Awake() {
 			m_rb = GetComponent<Rigidbody>();
-			currentHealth = health;
+			//currentHealth = health;
+			currentHealth = Health;
 		}
 
 		#region Spawning
@@ -82,7 +88,8 @@ namespace AsteroidsClone
             if (PoolManager.ExistClone(gameObject))
                 gameObject.SetActive(true);
 
-			currentHealth = health;
+			//currentHealth = health;
+			currentHealth = Health;
 
 			EnableControls();
             SpawnAt(FindFreePosition());

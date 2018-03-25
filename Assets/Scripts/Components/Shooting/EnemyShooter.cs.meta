@@ -1,0 +1,16 @@
+fileFormatVersion: 2
+guid: 20db2522f6ab2834d9c3cade262bd42a
+timeCreated: 1521911823
+licenseType: Free
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - m_bulletSpawnTransform: {instanceID: 0}
+  - ammunitionPrefab: {fileID: 1265293160518890, guid: 2f5780aa2e6c4e0418f2f1d4a67d5a99,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -5,12 +5,6 @@ using UnityEngine;
 
 namespace AsteroidsClone
 {
-	public class CollisionDetectedEventArgs : EventArgs
-	{
-		public EnemyUnit EnemyUnit { get; set; }
-		public EntityBehaviour SourceEntity { get; set; }
-	}
-
 	public class BasicCollisionDectection : MonoBehaviour
 	{
 		//	When other object collided with owner (GO with component attached) 
@@ -28,6 +22,15 @@ namespace AsteroidsClone
 				UnitShot(this, e);
 		}
 
+		//	Player Shot
+		/*public event EventHandler<CollisionDetectedEventArgs> PlayerShot;
+		protected virtual void OnPlayerShot(object sender, CollisionDetectedEventArgs e)
+		{
+			if (PlayerShot != null)
+				PlayerShot(this, e);
+		}*/
+
+		//	Active or Passive Enemy (Asteroids/Saucer) gets shot
 		void OnTriggerEnter(Collider trigger)
 		{
 			IShootable ammu = trigger.gameObject.GetComponent<IShootable>();
@@ -41,13 +44,18 @@ namespace AsteroidsClone
 
 			if (targetUnit != null && sourceEntity!=null)
 			{
-				// Unit Shot by Player/Enemy
+				if (targetUnit.tag == "Saucer")
+					Debug.Log("STOP");
+
+				if (targetUnit.tag == "Player")
+					Debug.Log("PLAYER SHOT");
+
+				// Unit Shot by Player (Asteroid or Saucer)
 				CollisionDetectedEventArgs colisionEvent = new CollisionDetectedEventArgs();
-				colisionEvent.SourceEntity = sourceEntity;
-				colisionEvent.EnemyUnit = targetUnit;
+				colisionEvent.SourceEntity = sourceEntity;	//	Player
+				colisionEvent.EnemyUnit = targetUnit;		//	Enemy Shot - Asteroid/Saucer
 
 				//	Debug.Log(this.name + " -Trigger in " + trigger.gameObject.name);
-
 				OnUnitShot(this, colisionEvent);
 			}
 		}

@@ -9,30 +9,30 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1222319592957444}
+  m_RootGameObject: {fileID: 1987467704015070}
   m_IsPrefabParent: 1
---- !u!1 &1222319592957444
+--- !u!1 &1987467704015070
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 5
   m_Component:
-  - component: {fileID: 4374004304222830}
-  - component: {fileID: 114146483378205762}
+  - component: {fileID: 4818371730390608}
+  - component: {fileID: 114376118641335610}
   m_Layer: 0
-  m_Name: Detonator
+  m_Name: EnemyShooter
   m_TagString: Untagged
-  m_Icon: {fileID: 5132851093641282708, guid: 0000000000000000d000000000000000, type: 0}
+  m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &4374004304222830
+--- !u!4 &4818371730390608
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1222319592957444}
+  m_GameObject: {fileID: 1987467704015070}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -40,21 +40,18 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &114146483378205762
+--- !u!114 &114376118641335610
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1222319592957444}
+  m_GameObject: {fileID: 1987467704015070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 888b51c967ee3854fa147a24c1c405c2, type: 3}
+  m_Script: {fileID: 11500000, guid: 20db2522f6ab2834d9c3cade262bd42a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  explosions:
-  - {fileID: 11400000, guid: 5d9142b12da7c5e40b5da3d76aab4417, type: 2}
-  - {fileID: 11400000, guid: 78e25d97709efae42a1054cbaf1eec35, type: 2}
-  - {fileID: 11400000, guid: 55316eb26f430b14aa440ef3c5cc5b5e, type: 2}
-  - {fileID: 11400000, guid: e47ea56494ccd4b4aa499ae690104d46, type: 2}
-  - {fileID: 11400000, guid: 037b96b180af88e4caed1d06d4cea22c, type: 2}
-  poolsBuilt: 1
+  m_bulletSpawnTransform: {fileID: 0}
+  ammunitionPrefab: {fileID: 1265293160518890, guid: 2f5780aa2e6c4e0418f2f1d4a67d5a99,
+    type: 2}
+  soundFXType: 5

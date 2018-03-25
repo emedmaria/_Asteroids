@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 25a83fc8d47b99a43a9b21e9a92b3bae, type: 3}
+  m_Name: PsEnemyExplosion
+  m_EditorClassIdentifier: 
+  explosionType: 3
+  ParticleSysPrefab: {fileID: 1068621253072780, guid: 339315b6e426fc74b89f98c0e1ecb7c4,
+    type: 2}
+  SoundFX:
+    Type: 9
+    Clip: {fileID: 8300000, guid: 0d905a1c583768f4394e038c9a739ef3, type: 3}
+    Volume: 0.5

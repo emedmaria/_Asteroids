@@ -20,13 +20,17 @@ namespace AsteroidsClone
 		[Header("Big Asteroid Prefab")]
 		private GameObject m_asteroidBigPrefab;
 
+		[SerializeField]
+		[Header("Enemy Types Prefabs")]
+		private GameObject[] enemiesPrefab;
+
 		//[SerializeField]
 		//[Header ("Handles Explosion collection")]
 		private Detonator detonator; 
 
 		//	Single Player
 		private Player player;
-		private BasicCollisionDectection m_playerCollisionDetection;
+		private PlayerCollisionDetection m_playerCollisionDetection;
 
 		//	Pooled Objects
 		private ObjectPool<GameObject> m_asteroidBigPool; 
@@ -35,6 +39,8 @@ namespace AsteroidsClone
         //  Spawners
         private BaseSpawner m_asteroidsSmallSpawner;
         private BaseSpawner m_asteroidsBigSpawner;
+
+		private EnemySpawner m_enemySpawner;
 
 		//private int m_level;
 
@@ -77,7 +83,8 @@ namespace AsteroidsClone
 
 			//	Player
 			player = Player.Spawn(m_playerShipPrefab, parent);
-			m_playerCollisionDetection = player.GetComponentInChildren<BasicCollisionDectection>();
+			//m_playerCollisionDetection = player.GetComponentInChildren<BasicCollisionDectection>();
+			m_playerCollisionDetection = player.GetComponentInChildren<PlayerCollisionDetection>();
 
 			AddListeners(); 
 
@@ -103,6 +110,8 @@ namespace AsteroidsClone
 			m_playerCollisionDetection.Collided += OnEntityCollided;
 			m_playerCollisionDetection.UnitShot += OnUnitShot;
 
+			m_playerCollisionDetection.PlayerGetsShot += OnPlayerGetsShot;
+
 			player.LivedDecreased += OnDied;
 		}
 
@@ -110,16 +119,32 @@ namespace AsteroidsClone
 		{
 			m_playerCollisionDetection.Collided -= OnEntityCollided;
 			m_playerCollisionDetection.UnitShot -= OnUnitShot;
+			m_playerCollisionDetection.PlayerGetsShot -= OnPlayerGetsShot;
+
 			//asteroidsBigSpawner.Shot -= OnUnitShot;
 			//asteroidsSmallSpawner.Shot -= OnUnitShot;
 			player.LivedDecreased -= OnDied;
 		}
 
+		private bool check = false; 
 		public void StartLevel(int level, int nAsteroidsByLevel)
 		{
 			//	Spawn Asteroids - Big
+			nAsteroidsByLevel = 1; 
 			m_asteroidsBigSpawner = new BaseSpawner(nAsteroidsByLevel,m_asteroidBigPrefab, m_asteroidSmallPrefab);
 			m_asteroidsBigSpawner.SpawnSet();
+
+			//	Enemies Spawner
+			m_enemySpawner = new EnemySpawner(enemiesPrefab);
+			if (!check)
+			{
+				m_enemySpawner.StopSpawn = false;
+				StartCoroutine(m_enemySpawner.StartSpawner(player.transform));
+				check = true; 
+			}
+
+			//	Suscription to events related to Enemy Collisions
+			m_enemySpawner.Shot += OnUnitShot;
 
 			//	Suscription to events related to Unit Collisions
 			m_asteroidsBigSpawner.Shot += OnUnitShot;
@@ -132,6 +157,7 @@ namespace AsteroidsClone
 		}
 
 		public void ResetPlayer() { player.Destruction(); }
+		public void ResetEnemies() { m_enemySpawner.Reset(); }
 
 		/// <summary>
 		/// An Active/Passive unit has been collided (by the player)
@@ -156,7 +182,7 @@ namespace AsteroidsClone
 		/// <param name="e"></param>
 		private void OnUnitShot(object sender, CollisionDetectedEventArgs e)
 		{
-			//	VFX of PassiveEnemy (Asteroid) / ActiveEnemy (UFO)
+			//	VFX of PassiveEnemy (Asteroid) / ActiveEnemy (Saucer)
 			EnemyUnit unit = e.EnemyUnit;
 			unit.Collide();
 
@@ -166,13 +192,18 @@ namespace AsteroidsClone
 			//	TODO Add nice animation with the Points Scored
 		}
 
+		private void OnPlayerGetsShot(object sender, CollisionDetectedEventArgs e)
+		{
+			//	TODO Recicly Unit
+			EnemyUnit activeEnemy = e.EnemyUnit;
+			m_enemySpawner.Reset(); 
+
+			//	Player Collision
+			player.Collide(activeEnemy.Damage);
+		}
+
 		public bool AsteroidsAlive { get { return m_asteroidsBigSpawner.EntityRemaining > 0; } }
 		public int AsteroidsCount { get { return m_asteroidsBigSpawner.EntityRemaining; } }
-
-		/*
-		public bool AsteroidsAlive { get { return asteroidsSmallSpawner.EntityRemaining > 0; } }
-		public int AsteroidsCount { get { return asteroidsSmallSpawner.EntityRemaining; } }
-		*/
 
 		public void ResetSpawners()
 		{
@@ -186,6 +217,11 @@ namespace AsteroidsClone
 			{
 				m_asteroidsBigSpawner.Shot -= OnUnitShot;
 				m_asteroidsBigSpawner.Reset();
+			}
+
+			if (m_enemySpawner != null) {
+				m_enemySpawner.Shot -= OnUnitShot;
+				m_enemySpawner.Reset();
 			}
 		}
 	}

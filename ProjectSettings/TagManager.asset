@@ -12,6 +12,8 @@ TagManager:
   - UFO
   - AsteroidSmall
   - Ammu
+  - Saucer
+  - SaucerAmmu
   layers:
   - Default
   - TransparentFX
@@ -22,9 +24,9 @@ TagManager:
   - 
   - 
   - Asteroid
-  - 
-  - 
-  - 
+  - Saucer
+  - Player
+  - SaucerAmmu
   - 
   - 
   - 
