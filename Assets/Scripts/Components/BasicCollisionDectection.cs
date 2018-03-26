@@ -44,11 +44,12 @@ namespace AsteroidsClone
 
 			if (targetUnit != null && sourceEntity!=null)
 			{
-				if (targetUnit.tag == "Saucer")
+				/*if (targetUnit.tag == "Saucer")
 					Debug.Log("STOP");
-
+				
 				if (targetUnit.tag == "Player")
 					Debug.Log("PLAYER SHOT");
+					*/
 
 				// Unit Shot by Player (Asteroid or Saucer)
 				CollisionDetectedEventArgs colisionEvent = new CollisionDetectedEventArgs();

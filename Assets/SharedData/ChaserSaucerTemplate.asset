@@ -14,7 +14,8 @@ MonoBehaviour:
   destructionScore: 600
   health: 1
   damage: 1
-  spawnIntervalTs: 4
-  fireRate: 2
+  fireRate: 5
+  shootSpeed: 14
+  moveSpeed: 3
   initForce: 800
   initRotation: 80

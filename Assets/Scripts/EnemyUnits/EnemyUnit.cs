@@ -4,25 +4,11 @@ using UnityEngine;
 namespace AsteroidsClone
 {
 	[RequireComponent(typeof(Rigidbody))]
-	public abstract class EnemyUnit : EntityBehaviour {
+	public abstract class EnemyUnit : EntityBehaviour{
 
 		abstract public int Health { get;  }
 		abstract public int DestructionScore { get; }
 		abstract public int Damage { get; }
-
-		//	TODO: Move this to the abstract SO
-		/*[SerializeField]
-		[Range(0, 200)]
-		protected int destructionScore = 100;				//	Points obtained when is hit
-		public int DestructionScore { get { return destructionScore; } }
-		
-		[SerializeField]
-		protected int health = 1;							//	Number of hits to permanent destroy it
-		public int Health { get { return health; } }
-		[SerializeField]
-		protected int damage = 1;							//	Damage caused by its collision
-		public int Damage { get { return damage; } }
-		*/
 
 		//	State Variables
 		protected int currentHealth;

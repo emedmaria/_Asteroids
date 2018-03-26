@@ -57,8 +57,8 @@ MonoBehaviour:
     type: 2}
   m_asteroidBigPrefab: {fileID: 186268, guid: 0cc2b6c448b0759409599f21e66ce41e, type: 2}
   enemiesPrefab:
-  - {fileID: 191014, guid: 33184c9aaca65824bbc52809379e9aa3, type: 2}
   - {fileID: 1104791594272156, guid: 14b5789361ca9d146bc2dfae521e05d1, type: 2}
+  - {fileID: 1787147035991190, guid: bbb785f3bb690a64bbbc3c8f9904bf32, type: 2}
 --- !u!114 &114684826656514204
 MonoBehaviour:
   m_ObjectHideFlags: 1

@@ -8,14 +8,19 @@ namespace AsteroidsClone
 	public class SaucerSharedData : EnemySharedData
 	{
 		[SerializeField]
-		[Header("Appearance Interval")]
-		private float spawnIntervalTs = 4f;
-		public float SpawnIntervalTs { get { return spawnIntervalTs; } }
+		[Header("Shooting Delay")]
+		private float fireRate = 4f;
+		public float FireRate { get { return fireRate; } }
 
 		[SerializeField]
-		[Header("Shooting Delay")]
-		private float fireRate = 0.3f;
-		public float FireRate { get { return fireRate; } }
+		[Header("Shooting Speed")]
+		private float shootSpeed = 4f;
+		public float ShootSpeed { get { return shootSpeed; } }
+
+		[SerializeField]
+		[Header("Movement Speed")]
+		private float moveSpeed = 2f;
+		public float MoveSpeed { get { return moveSpeed; } }
 
 		[SerializeField]
 		private float initForce = 800f;

@@ -1,33 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
 using UnityEngine;
 using UnityEngine.Assertions;
 
 namespace AsteroidsClone
 {
-	public class ActiveEnemyUnit : EnemyUnit
+	public interface ICustomMove
+	{
+		void Move(Transform target = null);
+		void PerformMovement(); 
+	}
+
+	public class ActiveEnemyUnit : EnemyUnit, ICustomMove
 	{
 		//	Shared Enemies Data - Customizable via SO
 		[SerializeField]
 		private SaucerSharedData sharedData;
 
+		//	Shooting Handler
 		public EnemyShooter EnemyShooter; 
 
+		//	Common properties (Enemy)
 		override public int Health { get { return sharedData.Health; } }
 		override public int DestructionScore { get { return sharedData.DestructionScore; } }
 		override public int Damage { get { return sharedData.Damage; } }
 
+		//	Active Enemy properties
 		public float FireRate { get { return sharedData.FireRate; } }
-		protected float SpawnIntervalTs { get { return sharedData.SpawnIntervalTs; } }
-		protected float InitForce { get { return sharedData.InitForce; } }
-		protected float InitRotation { get { return sharedData.InitRotation; } }
+		public float ShootSpeed { get { return sharedData.ShootSpeed; } }
+		public float MoveSpeed { get { return sharedData.MoveSpeed; } }
 
 		// Movement variables
-		protected Vector3 direction;
-		protected float speed = 3f;
-
-		private Transform m_target;
-		private bool m_stopMove = true; 
+		protected Transform target;
+		public bool StopMove = true;
 
 		#region Monobehaviour methods
 		void OnValidate()
@@ -43,21 +47,19 @@ namespace AsteroidsClone
 			base.Awake();
 		}
 
-		void FixedUpdate()
-		{
-			if (m_stopMove || m_target == null) return; 
-
-			direction = (m_target.position - transform.position).normalized;
-			m_rb.MovePosition(m_rb.position + direction * speed * Time.fixedDeltaTime);
-		}
+		virtual public void FixedUpdate() { PerformMovement(); }
 
 		#endregion
 		#region Enemy Behaviours
+		public virtual void PerformMovement()
+		{
+			throw new NotImplementedException("PerformMovement methods must be implemented by child classes");
+		}
+
 		public virtual void Move(Transform target = null)
 		{
-			m_target = target;
-			m_stopMove = false;
-
+			this.target = target;
+			StopMove = false;
 			Aim(); 
 		}
 
@@ -66,7 +68,10 @@ namespace AsteroidsClone
 			//	Set Up the Shooter 
 			EnemyShooter.BulletSpawnPoint = transform.Find("BulletSpawnPoint");
 			EnemyShooter.FireRate = FireRate;
-			EnemyShooter.Target = m_target;
+			EnemyShooter.ShootSpeed = ShootSpeed;
+			EnemyShooter.Target = target;
+
+			//	Enable Shooting
 			EnemyShooter.StopShooting = false;
 		}
 	
@@ -80,6 +85,10 @@ namespace AsteroidsClone
 
 			if(currentHealth<=0)
 			Destruction();
+
+			//	Disable Shooting
+			EnemyShooter.StopShooting = true;
+
 		}
 		#endregion
 	}

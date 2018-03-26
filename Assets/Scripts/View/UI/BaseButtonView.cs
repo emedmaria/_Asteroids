@@ -9,15 +9,15 @@ namespace AsteroidsClone
 	[RequireComponent(typeof(Button))]
 	public class BaseButtonView : BaseView {
 
-		private Button Button;
-		private Text ButtonLabel;
+		private Button button;
+		private Text buttonLabel;
 
 		#region - MonoBehaviour methods
 		void Awake()
 		{
 			// Save references of the components needed (in case not added via Inspector)
-			Button = GetComponentInChildren<Button>();
-			ButtonLabel = Button.GetComponentInChildren<Text>();
+			button = GetComponentInChildren<Button>();
+			buttonLabel = button.GetComponentInChildren<Text>();
 
 			WireUIEvents();
 		}
@@ -26,13 +26,13 @@ namespace AsteroidsClone
 		#region Properties/Fields
 		public string Text
 		{
-			get { return ButtonLabel != null ? ButtonLabel.text : string.Empty; }
+			get { return buttonLabel != null ? buttonLabel.text : string.Empty; }
 			set
 			{
-				if (ButtonLabel == null)
+				if (buttonLabel == null)
 					return;
 
-				ButtonLabel.text = value;
+				buttonLabel.text = value;
 			}
 		}
 		/// <summary>
@@ -60,7 +60,6 @@ namespace AsteroidsClone
 		public event EventHandler Clicked;
 		protected virtual void OnClicked()
 		{
-			//Debug.Log("Button " + gameObject.name + " Clicked");
 			// Do not propage event when Disabled
 			if (!IsEnabled)
 				return;
@@ -80,13 +79,13 @@ namespace AsteroidsClone
 		protected virtual void WireUIEvents()
 		{
 			// Programatically add the onClick handler if it is not set
-			if (Button.onClick.GetPersistentEventCount() <= 0)
-				Button.onClick.AddListener(OnClicked);
+			if (button.onClick.GetPersistentEventCount() <= 0)
+				button.onClick.AddListener(OnClicked);
         }
 
 		protected virtual void UnWireUIEvents()
 		{
-			Button.onClick.RemoveAllListeners();
+			button.onClick.RemoveAllListeners();
 		}
 		#endregion
 	}

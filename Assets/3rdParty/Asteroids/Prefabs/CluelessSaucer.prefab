@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 114473929222078366}
   - component: {fileID: 114711315578516530}
   - component: {fileID: 114836828914848940}
+  - component: {fileID: 114146661760301266}
   m_Layer: 9
   m_Name: CluelessSaucer
   m_TagString: Saucer
@@ -232,6 +233,21 @@ Transform:
   m_Father: {fileID: 499594}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114146661760301266
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 191014}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8ba8158c3796cc547b493611136e3146, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  explosionType: 3
+  sharedData: {fileID: 11400000, guid: e2d590d9a4663024791e6bb24c7078e7, type: 2}
+  EnemyShooter: {fileID: 114836828914848940}
+  StopMove: 1
 --- !u!114 &114473929222078366
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -250,14 +266,18 @@ MonoBehaviour:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 191014}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 250c2835d34b9c3459361dceb64ca22a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  currentHealth: 0
+  m_rb: {fileID: 0}
   explosionType: 3
   sharedData: {fileID: 11400000, guid: e2d590d9a4663024791e6bb24c7078e7, type: 2}
   EnemyShooter: {fileID: 114836828914848940}
+  Target: {fileID: 0}
+  StopMove: 1
 --- !u!114 &114711315578516530
 MonoBehaviour:
   m_ObjectHideFlags: 1

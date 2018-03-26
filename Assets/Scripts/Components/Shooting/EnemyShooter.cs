@@ -7,38 +7,39 @@ namespace AsteroidsClone
 {
 	public class EnemyShooter : MonoBehaviour {
 
-		const int MAX_AMMUNITION = 4;
-		const float AMMU_SPEED = 45f;
-		const float DEFAULT_FIRERATE = 30f;
+		//	Default values if properties are not set
+		const int DEFAULT_AMMU_POOLED = 4;
+		const float DEFAULT_AMMU_SPEED = 25f;
+		const float DEFAULT_FIRERATE = 10f;
 
-		private float m_nextFire = 0.0f;
+		#region Properties
+		//	Pool Size
+		private int ammuPoolCount;
+		public int AmmuPoolCount { set { ammuPoolCount = value; }}
 
+		//	Speed of the Bullet
+		private float shootSpeed;
+		public float ShootSpeed { set { shootSpeed = value; } }
+
+		//	Shoot Frequency
 		private float fireRate; 
-		public float FireRate
-		{
-			set { fireRate = value;  }
-		}
+		public float FireRate{ set { fireRate = value;  }}
 
+		//	Enable/Disable Shooting
 		private bool stopShooting = true; 
-		public bool StopShooting
-		{
-			set { stopShooting = value; }
-		}
+		public bool StopShooting { set { stopShooting = value; } }
 
+		//	Target to Shoot
 		private Transform target;
-		public Transform Target
-		{
-			set { target = value; }
-		}
+		public Transform Target{ set { target = value; }}
 
 		[SerializeField]
 		private Transform bulletSpawnPoint;
-		public Transform BulletSpawnPoint
-		{
-			set { bulletSpawnPoint = value; }
-		}
+		public Transform BulletSpawnPoint { set { bulletSpawnPoint = value; } }
+		#endregion
 
 		private Rigidbody m_rb;
+		private float m_nextFire = 0.0f;
 
 		[SerializeField]
 		private GameObject ammunitionPrefab;
@@ -53,7 +54,7 @@ namespace AsteroidsClone
 			Assert.IsNotNull(ammunitionPrefab, "[EnemyShooter] ammunitionPrefab must be referenced in the inspector!");
 
 			m_rb = GetComponent<Rigidbody>();
-			PoolManager.BuildPool(ammunitionPrefab, MAX_AMMUNITION);
+			PoolManager.BuildPool(ammunitionPrefab, DEFAULT_AMMU_POOLED);
 		}
 
 		void Update()
@@ -64,28 +65,33 @@ namespace AsteroidsClone
 			{
 				m_nextFire = Time.time + fireRate;
 
+				//	Check the direction between target and bulletSpawn point
 				Vector3 direction = (target.position - bulletSpawnPoint.position).normalized;
+				//	Calculate the angle determined by direction axis. Convert to Degrees
 				float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg - 90;
-				Quaternion q = Quaternion.AngleAxis(angle, Vector3.forward);
+				//	Rotates angle degrees around Z axis
+				Quaternion qRotation = Quaternion.AngleAxis(angle, Vector3.forward);
 
+				//	Instance ammunition to shoot (from pool)
 				var ammunitionClone = PoolManager.SpawnObject(ammunitionPrefab);
 				var ammuTransform = ammunitionClone.transform;
+				//	Set the ammu position/rotation accordingly
 				ammuTransform.position = bulletSpawnPoint.position;
-				ammuTransform.rotation = q;
+				ammuTransform.rotation = qRotation;
 
-
+				//	Shoot and Play SFX
 				IShootable shootable = ammunitionClone.GetComponent<IShootable>();
 				shootable.Source = bulletSpawnPoint;
+				
 				AudioManager.Instance.PlaySFX(soundFXType);
-				FireAmmunition(shootable, direction);
+
+				FireAmmunition(shootable, direction, shootSpeed==0?DEFAULT_AMMU_SPEED:shootSpeed);
 			}
-			
 		}
 		#endregion
 
-		void FireAmmunition(IShootable ammu, Vector3 direction, float speed = AMMU_SPEED)
+		void FireAmmunition(IShootable ammu, Vector3 direction, float speed = DEFAULT_AMMU_SPEED)
 		{
-			//Vector3 direction = bulletSpawnPoint.up;
 			direction = (direction * speed) + m_rb.velocity;
 			ammu.Fire(m_rb.position, m_rb.rotation, direction);
 		}

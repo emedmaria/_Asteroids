@@ -179,7 +179,7 @@ namespace AsteroidsClone
 
 				//	Player controls not active
 				levelManager.ResetPlayer();
-				levelManager.ResetEnemies(); 
+				//levelManager.ResetEnemies(); 
 
 				//	Display message and hide
 				uiController.ShowMessage("LEVEL COMPLETED!!");

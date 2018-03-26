@@ -40,7 +40,6 @@ namespace AsteroidsClone
 		public float LevelStartDelay;
 		public float LevelEndDelay; 
 
-		//	
 		#region Singleton Reload - Proof Singleton
 		private static GameSettings instance;
 		public static GameSettings Instance

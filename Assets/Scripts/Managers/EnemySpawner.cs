@@ -38,10 +38,6 @@ namespace AsteroidsClone
 			m_spawnEnemies = new List<ActiveEnemyUnit>(); 
 		}
 
-		public void InitSpawn(Transform target)
-		{
-		}
-
 		public IEnumerator StartSpawner(Transform target)
 		{
 			if (stopSpawn) yield return null;
@@ -50,7 +46,7 @@ namespace AsteroidsClone
 			yield return new WaitForSeconds(startWaitTs);
 
 			m_currentEnemy = UnityEngine.Random.Range(0, m_enemyPrefabToSpawn.Length);
-			m_currentEnemy = 0;
+			m_currentEnemy = 0; 
 			var enemyClone = PoolManager.SpawnObject(m_enemyPrefabToSpawn[m_currentEnemy]);
 			var activeEnemyUnity = enemyClone.GetComponent<ActiveEnemyUnit>();
 
@@ -65,12 +61,13 @@ namespace AsteroidsClone
 			if (m_spawnEnemies == null) m_spawnEnemies = new List<ActiveEnemyUnit>(); 
 			m_spawnEnemies.Add(activeEnemyUnity);
 
-
 			//	Spawn at free position
 			activeEnemyUnity.Spawn();
 
 			//	Start movement
-			activeEnemyUnity.Move(target);
+			ICustomMove customMove = activeEnemyUnity.GetComponent<ICustomMove>();
+			customMove.Move(target);
+			//activeEnemyUnity.Move(target);
 		}
 
 		public void Reset()
