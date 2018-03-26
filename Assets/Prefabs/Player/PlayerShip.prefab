@@ -16,7 +16,7 @@ GameObject:
   - component: {fileID: 114752604046656932}
   - component: {fileID: 114140413465814490}
   - component: {fileID: 114144721142519874}
-  - component: {fileID: 114662450080034924}
+  - component: {fileID: 114127377716745036}
   m_Layer: 10
   m_Name: PlayerShip
   m_TagString: Player
@@ -3777,6 +3777,17 @@ Prefab:
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 103884}
   m_IsPrefabParent: 1
+--- !u!114 &114127377716745036
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 103884}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7f2a30e0cd9dd8042b9cba1ba33fbf2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &114140413465814490
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3788,10 +3799,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e62f6f43b0d2e104088b8a33c4894c34, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_bulletSpawnTransform: {fileID: 456326}
   soundFXType: 5
   ammunitionPrefab: {fileID: 1439002349846826, guid: f87c25526d3522245a339b002fce3678,
     type: 2}
+  m_bulletSpawnTransform: {fileID: 456326}
 --- !u!114 &114144721142519874
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3815,17 +3826,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ShipSettings: {fileID: 11400000, guid: 29f848c8f31ff90488cc122a32861eb8, type: 2}
---- !u!114 &114662450080034924
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 103884}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5b7c8b5d57c727e4abfcb286f485dc67, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &114752604046656932
 MonoBehaviour:
   m_ObjectHideFlags: 1
